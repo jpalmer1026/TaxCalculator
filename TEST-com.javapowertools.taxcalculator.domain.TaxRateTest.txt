@@ -1,0 +1,12 @@
+Testsuite: com.javapowertools.taxcalculator.domain.TaxRateTest
+Tests run: 3, Failures: 1, Errors: 0, Time elapsed: 0.021 sec
+
+Testcase: testCalculateTaxBracket1 took 0.003 sec
+Testcase: testCalculateTaxBracket2 took 0 sec
+Testcase: testCalculateTaxBracket3 took 0.003 sec
+	FAILED
+expected:<7800.0> but was:<0.0>
+junit.framework.AssertionFailedError: expected:<7800.0> but was:<0.0>
+	at com.javapowertools.taxcalculator.domain.TaxRateTest.testCalculateTaxBracket3(Unknown Source)
+	at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:32)
+

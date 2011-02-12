@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="tax-calculator" default="package">
+
+    <property name="src.dir" location="src"/>
+    <property name="build.dir" location="build"/>
+    <property name="tests.dir" location="test"/>
+    <property name="build.classes.dir" location="${build.dir}/classes"/>
+    <property name="test.classes.dir" location="${build.dir}/test-classes"/>
+    <property name="test.classes.dir" location="${build.dir}/test-classes"/>
+    <property name="lib" location="lib"/>
+    <property name="dist.dir" location="dist"/>
+
+    <path id="compile.classpath">
+        <fileset dir="${lib}" includes="*.jar"/>
+    </path>
+
+    <path id="test.compile.classpath">
+        <path refid="compile.classpath"/>
+        <pathelement location="${build.classes.dir}"/>
+    </path>
+
+    <path id="test.classpath">
+        <path refid="test.compile.classpath"/>
+        <pathelement path="${test.classes.dir}"/>
+    </path>
+
+    <target name="init">
+        <mkdir dir="${build.classes.dir}"/>
+        <mkdir dir="${test.classes.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+
+    <target name="compile" depends="init" description="Compile Java code">
+        <javac srcdir="${src.dir}"
+               destdir="${build.classes.dir}"
+               classpathref="compile.classpath"/>
+    </target>
+
+    <target name="compile-tests" depends="compile" description="Compile Unit Tests">
+        <javac srcdir="${tests.dir}"
+               destdir="${test.classes.dir}">
+               <classpath refid="test.compile.classpath"/>
+        </javac>
+    </target>
+
+    <target name="test" depends="compile-tests" description="Run unit tests">
+        <junit printsummary="true" haltonfailure="true">
+            <classpath refid="test.classpath"/>
+            <formatter type="plain" usefile="false"/>
+            <test name="com.javapowertools.taxcalculator.domain.TaxRateTest"/>
+        </junit>
+    </target>
+
+    <target name="package" depends="compile" description="Generate JAR file">
+        <jar destfile="${dist.dir}/tax-calculator.jar" basedir="${build.dir}/classes"/>
+    </target>
+
+    <target name="clean" description="Deletes generated directories">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+
+    <target name="display-propeties">
+        <echoproperties/>
+    </target>
+</project>
